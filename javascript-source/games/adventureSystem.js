@@ -134,6 +134,7 @@
   function replaceTags(line) {
     if (line.indexOf('(caught)') > -1) {
       if (currentAdventure.caught.length > 0) {
+        line = "[-] " + line;
         return line.replace('(caught)', adventureUsersListJoin(currentAdventure.caught));
       } else {
         return '';
@@ -141,6 +142,7 @@
     }
     if (line.indexOf('(survivors)') > -1) {
       if (currentAdventure.survivors.length > 0) {
+         line = "[+] " + line;
         return line.replace('(survivors)', adventureUsersListJoin(currentAdventure.survivors));
       } else {
         return '';
@@ -256,7 +258,7 @@
 
     currentAdventure.gameState = 2;
     calculateResult();
-    $.say($.lang.get('adventuresystem.runstory', story.title, currentAdventure.users.length));
+    //$.say($.lang.get('adventuresystem.runstory', story.title, currentAdventure.users.length));
 
     t = setInterval(function () {
       if (progress < story.lines.length) {
@@ -286,7 +288,7 @@
       $.inidb.incr('points', currentAdventure.survivors[i].username, currentAdventure.survivors[i].bet + pay);
     }
 
-    $.say($.lang.get('adventuresystem.completed', currentAdventure.survivors.length, currentAdventure.caught.length));
+    // $.say($.lang.get('adventuresystem.completed', currentAdventure.survivors.length, currentAdventure.caught.length));
     clearCurrentAdventure();
     $.coolDown.set('adventure', coolDown * 1e3);
   };
